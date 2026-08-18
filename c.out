@@ -1,0 +1,4 @@
+mode: set
+github.com/official-taufiq/go-table-driven-test-template/split.go:5.36,10.13 3 1
+github.com/official-taufiq/go-table-driven-test-template/split.go:10.13,14.3 3 1
+github.com/official-taufiq/go-table-driven-test-template/split.go:15.2,15.26 1 1
