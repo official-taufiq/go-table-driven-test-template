@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/google/go-cmp/cmp"
 	"reflect"
 	"testing"
 )
@@ -32,8 +33,11 @@ func TestSplit2(t *testing.T) {
 
 		t.Run(name, func(t *testing.T) {
 			got := Split(v.input, v.sep)
-			if !reflect.DeepEqual(v.want, got) {
-				t.Fatalf("Expected: %v, Got: %v", v.want, got)
+			// if !reflect.DeepEqual(v.want, got) {
+			// 	t.Fatalf("Expected: %#v, Got: %#v", v.want, got)
+			// }
+			if diff := cmp.Diff(v.want, got); diff != "" {
+				t.Fatal(diff)
 			}
 		})
 	}
