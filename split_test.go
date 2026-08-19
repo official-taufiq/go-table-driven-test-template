@@ -15,22 +15,26 @@ func TestSplit(t *testing.T) {
 }
 
 func TestSplit2(t *testing.T) {
-	type test struct {
+	type test map[string]struct {
 		input string
 		sep   string
 		want  []string
 	}
 
-	tests := []test{
-		{input: "a/b/c", sep: "/", want: []string{"a", "b", "c"}},
-		{input: "a/b/c", sep: ",", want: []string{"a/b/c"}},
-		{input: "abc", sep: "/", want: []string{"abc"}},
+	tests := test{
+		"simple":       {input: "a/b/c", sep: "/", want: []string{"a", "b", "c"}},
+		"wrong sep":    {input: "a/b/c", sep: ",", want: []string{"a/b/c"}},
+		"no sep":       {input: "abc", sep: "/", want: []string{"abc"}},
+		"trailing sep": {input: "a/b/c/", sep: "/", want: []string{"a", "b", "c"}},
 	}
 
-	for _, v := range tests {
-		got := Split(v.input, v.sep)
-		if !reflect.DeepEqual(v.want, got) {
-			t.Fatalf("Expected: %v, Got: %v", v.want, got)
-		}
+	for name, v := range tests {
+
+		t.Run(name, func(t *testing.T) {
+			got := Split(v.input, v.sep)
+			if !reflect.DeepEqual(v.want, got) {
+				t.Fatalf("Expected: %v, Got: %v", v.want, got)
+			}
+		})
 	}
 }
